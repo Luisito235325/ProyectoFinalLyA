@@ -1,18 +1,18 @@
 Proceso Hotel
     
-    habitacionesTotales <- 100; // n鷐ero de habitaciones totales del hotel
-    habitacionesOcupadas <- 0; // n鷐ero de habitaciones ocupadas
-    habitacionesDisponibles <- 0; // n鷐ero de habitaciones disponibles
+    habitacionesTotales <- 100; // n煤mero de habitaciones totales del hotel
+    habitacionesOcupadas <- 0; // n煤mero de habitaciones ocupadas
+    habitacionesDisponibles <- 0; // n煤mero de habitaciones disponibles
 	
-    // Inicializar arreglo de habitaciones
+   
     habitaciones <- Nuevo arreglo[habitacionesTotales] de booleano;
 	
-    // Inicializar arreglo con todos los valores en falso (habitaciones disponibles)
+ 
     Para i <- 1 hasta habitacionesTotales hacer
         habitaciones[i] <- Falso;
     FinPara
 	
-    // Funci髇 para ocupar una habitaci髇
+    // Funci贸n para ocupar una habitaci贸n
     Proceso OcuparHabitacion(numHabitacion)
         Si numHabitacion > 0 y numHabitacion <= habitacionesTotales entonces
             Si habitaciones[numHabitacion] = Falso entonces
@@ -23,7 +23,7 @@ Proceso Hotel
         FinSi
 FinProceso
 
-// Funci髇 para liberar una habitaci髇
+// Funci贸n para liberar una habitaci贸n
 Proceso LiberarHabitacion(numHabitacion)
 	Si numHabitacion > 0 y numHabitacion <= habitacionesTotales entonces
 		Si habitaciones[numHabitacion] = Verdadero entonces
