@@ -12,7 +12,7 @@ Proceso Hotel
         habitaciones[i] <- Falso;
     FinPara
 	
-    // Función para ocupar una habitación
+    // Ocupar una habitacion
     Proceso OcuparHabitacion(numHabitacion)
         Si numHabitacion > 0 y numHabitacion <= habitacionesTotales entonces
             Si habitaciones[numHabitacion] = Falso entonces
@@ -23,7 +23,7 @@ Proceso Hotel
         FinSi
 FinProceso
 
-// Función para liberar una habitación
+// Liberar una habitacion
 Proceso LiberarHabitacion(numHabitacion)
 	Si numHabitacion > 0 y numHabitacion <= habitacionesTotales entonces
 		Si habitaciones[numHabitacion] = Verdadero entonces
@@ -40,7 +40,7 @@ Proceso MostrarEstado
 	Escribir "Habitaciones disponibles: ", habitacionesDisponibles;
 FinProceso
 
-// Ejemplo de uso
+// Habitaciones
 OcuparHabitacion(10);
 OcuparHabitacion(20);
 LiberarHabitacion(10);
