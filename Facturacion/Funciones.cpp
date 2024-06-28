@@ -3,6 +3,13 @@
 
 using namespace std;
 
+void limpiarPantalla();
+void ActualizarEstadoPago();
+void MostrarFactura();
+void MostrarFacturasRegistradas();
+void EliminarFactura();
+void principal();
+
 void LimpiarPantalla()
 {
     system("cls");
@@ -56,30 +63,38 @@ void MostrarFacturasRegistradas()
     }
 }
 
-void EliminarFactura() {
+void EliminarFactura()
+{
     int facturaAEliminar;
     cout << "Ingrese el número de factura a eliminar: ";
     cin >> facturaAEliminar;
 
     int indiceAEliminar = -1;
-    for (int i = 0; i < cantidadFacturas; ++i) {
-        if (numeroFactura[i] == facturaAEliminar) {
+    for (int i = 0; i < cantidadFacturas; ++i)
+    {
+        if (numeroFactura[i] == facturaAEliminar)
+        {
             indiceAEliminar = i;
             break;
         }
     }
 
-    if (indiceAEliminar != -1) {
-        for (int i = indiceAEliminar; i < cantidadFacturas - 1; ++i) {
+    if (indiceAEliminar != -1)
+    {
+        for (int i = indiceAEliminar; i < cantidadFacturas - 1; ++i)
+        {
             numeroFactura[i] = numeroFactura[i + 1];
             // Repite para los demás arreglos
         }
         cantidadFacturas--;
         cout << "Factura eliminada correctamente." << endl;
-    } else {
+    }
+    else
+    {
         cout << "No se encontró la factura con el número ingresado." << endl;
     }
 }
+
 void principal()
 {
     do
