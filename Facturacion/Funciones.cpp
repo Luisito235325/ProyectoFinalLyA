@@ -1,21 +1,18 @@
 #include <iostream>
-#include "variables.h"
+#include "variables.h" 
 
 using namespace std;
 
+
 void limpiarPantalla();
-void ActualizarEstadoPago();
-void MostrarFactura();
-void MostrarFacturasRegistradas();
-void EliminarFactura();
+void actualizarEstadoPago();
+void mostrarFactura();
+void mostrarFacturasRegistradas();
+void eliminarFactura();
+int menu();
 void principal();
 
-void LimpiarPantalla()
-{
-    system("cls");
-}
-
-void RegistrarFactura()
+void registrarFactura()
 {
     cout << "Ingrese el numero de factura: ";
     cin >> numeroFactura;
@@ -31,7 +28,7 @@ void RegistrarFactura()
     cin >> montoPagado;
 }
 
-void ActualizarEstadoPago()
+void actualizarEstadoPago()
 {
     if (montoPagado >= montoAPagar)
     {
@@ -43,7 +40,7 @@ void ActualizarEstadoPago()
     }
 }
 
-void MostrarFactura()
+void mostrarFactura()
 {
     cout << "Numero de Factura: " << numeroFactura << endl;
     cout << "Nombre del Cliente: " << nombreCliente << endl;
@@ -55,18 +52,18 @@ void MostrarFactura()
     cout << "-----------------------------" << endl;
 }
 
-void MostrarFacturasRegistradas()
+void mostrarFacturasRegistradas()
 {
     for (int i = 0; i < cantidadFacturas; ++i)
     {
-        MostrarFactura();
+        mostrarFactura();
     }
 }
 
-void EliminarFactura()
+void eliminarFactura()
 {
     int facturaAEliminar;
-    cout << "Ingrese el número de factura a eliminar: ";
+    cout << "Ingrese el numero de factura a eliminar: ";
     cin >> facturaAEliminar;
 
     int indiceAEliminar = -1;
@@ -84,52 +81,62 @@ void EliminarFactura()
         for (int i = indiceAEliminar; i < cantidadFacturas - 1; ++i)
         {
             numeroFactura[i] = numeroFactura[i + 1];
-            // Repite para los demás arreglos
+            
         }
         cantidadFacturas--;
         cout << "Factura eliminada correctamente." << endl;
     }
     else
     {
-        cout << "No se encontró la factura con el número ingresado." << endl;
+        cout << "No se encontro la factura con el numero ingresado." << endl;
     }
+}
+
+int menu()
+{
+    int opcion;
+    cout << "Seleccione una opcion:\n";
+    cout << "1. Registrar nueva factura\n";
+    cout << "2. Ver facturas registradas\n";
+    cout << "3. Eliminar factura\n";
+    cout << "4. Salir\n";
+    cout << "Opcion: ";
+    cin >> opcion;
+    return opcion;
 }
 
 void principal()
 {
+    char opcion;
     do
     {
-        LimpiarPantalla();
-        cout << "Seleccione una opción:\n";
-        cout << "1. Registrar nueva factura\n";
-        cout << "2. Ver facturas registradas\n";
-        cout << "3. Eliminar factura\n";
-        cout << "4. Salir\n";
-        cout << "Opción: ";
-        cin >> opcion;
-
-        switch (opcion)
+        int op = menu();
+        switch (op)
         {
-        case '1':
-            RegistrarFactura();
-            ActualizarEstadoPago();
-            MostrarFactura();
+        case 1:
+            system("cls");
+            registrarFactura();
+            actualizarEstadoPago();
+            mostrarFactura();
             cantidadFacturas++;
             break;
-        case '2':
-            LimpiarPantalla();
+        case 2:
+            system("cls");
             cout << "Facturas Registradas:" << endl;
-            MostrarFacturasRegistradas();
+            mostrarFacturasRegistradas();
             break;
-        case '3':
-            EliminarFactura();
+        case 3:
+            system("cls");
+            eliminarFactura();
             break;
-        case '4':
+        case 4:
             return;
         default:
-            cout << "Opción no válida. Intente nuevamente.\n";
+            cout << "Opcion no valida. Intente nuevamente.\n";
         }
-        cout << "¿Desea realizar otra operación? (S/N): ";
+
+        cout << "¿Desea realizar otra operacion? (S/N): ";
         cin >> opcion;
+        system("cls");
     } while (opcion == 'S' || opcion == 's');
 }
