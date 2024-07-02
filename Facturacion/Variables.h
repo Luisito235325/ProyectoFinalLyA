@@ -1,11 +1,14 @@
-const int MAX_CHAR = 100;
+struct Factura
+{
+    int numeroFactura;
+    char nombreCliente[100];
+    char fechaEstancia[11];
+    int numeroCuarto;
+    double montoAPagar;
+    double montoPagado;
+    bool pagado;
+};
 
-char numeroFactura[MAX_CHAR];
-char nombreCliente[MAX_CHAR];
-char fechaEstancia[MAX_CHAR];
-char numeroCuarto[MAX_CHAR];
-double montoAPagar;
-double montoPagado;
-char opcion;
+Factura *facturas = nullptr;
 int cantidadFacturas = 0;
-bool pagado;
+int capacidadFacturas = 10; // capacidad inicial

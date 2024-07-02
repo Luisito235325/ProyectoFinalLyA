@@ -1,54 +1,73 @@
 #include <iostream>
-#include "variables.h" 
+#include <cstdio>
+#include "Variables.h"
 
 using namespace std;
 
 
 void limpiarPantalla();
-void actualizarEstadoPago();
-void mostrarFactura();
+void actualizarEstadoPago(Factura *factura);
+void mostrarFactura(Factura *factura);
 void mostrarFacturasRegistradas();
 void eliminarFactura();
 int menu();
 void principal();
+void guardarFacturas();
+void cargarFacturas();
 
 void registrarFactura()
 {
+    if (cantidadFacturas >= capacidadFacturas)
+    {
+        capacidadFacturas *= 2;
+        Factura *nuevasFacturas = new Factura[capacidadFacturas];
+        for (int i = 0; i < cantidadFacturas; ++i)
+        {
+            nuevasFacturas[i] = facturas[i];
+        }
+        delete[] facturas;
+        facturas = nuevasFacturas;
+    }
+
+    Factura &factura = facturas[cantidadFacturas];
     cout << "Ingrese el numero de factura: ";
-    cin >> numeroFactura;
+    cin >> factura.numeroFactura;
     cout << "Ingrese el nombre del cliente: ";
-    cin >> nombreCliente;
+    cin >> factura.nombreCliente;
     cout << "Ingrese la fecha de estancia (DD/MM/AAAA): ";
-    cin >> fechaEstancia;
+    cin >> factura.fechaEstancia;
     cout << "Ingrese el numero de cuarto: ";
-    cin >> numeroCuarto;
+    cin >> factura.numeroCuarto;
     cout << "Ingrese el monto a pagar: ";
-    cin >> montoAPagar;
+    cin >> factura.montoAPagar;
     cout << "Ingrese el monto pagado: ";
-    cin >> montoPagado;
+    cin >> factura.montoPagado;
+
+    actualizarEstadoPago(&factura);
+    cantidadFacturas++;
 }
 
-void actualizarEstadoPago()
+void actualizarEstadoPago(Factura *factura)
 {
-    if (montoPagado >= montoAPagar)
+    if (factura->montoPagado >= factura->montoAPagar)
     {
-        pagado = true;
+        factura->pagado = true;
     }
     else
     {
-        pagado = false;
+        factura->pagado = false;
     }
 }
 
-void mostrarFactura()
+void mostrarFactura(Factura *factura)
 {
-    cout << "Numero de Factura: " << numeroFactura << endl;
-    cout << "Nombre del Cliente: " << nombreCliente << endl;
-    cout << "Fecha de Estancia: " << fechaEstancia << endl;
-    cout << "Numero de Cuarto: " << numeroCuarto << endl;
-    cout << "Monto a Pagar: $" << montoAPagar << endl;
-    cout << "Monto Pagado: $" << montoPagado << endl;
-    cout << "Estado: " << (pagado ? "Pagado" : "Pendiente") << endl;
+    cout << "Numero de Factura: " << factura->numeroFactura << endl;
+    cout << "Nombre del Cliente: " << factura->nombreCliente << endl;
+    cout << "Fecha de Estancia: " << factura->fechaEstancia << endl;
+    cout << "Numero de Cuarto: " << factura->numeroCuarto << endl;
+    cout << "Monto a Pagar: $" << factura->montoAPagar << endl;
+    cout << "Monto Pagado: $" << factura->montoPagado << endl;
+    cout << "Estado: " << (factura->pagado ? "Pagado" : "Pendiente") << endl;
     cout << "-----------------------------" << endl;
 }
 
@@ -56,7 +75,7 @@ void mostrarFacturasRegistradas()
 {
     for (int i = 0; i < cantidadFacturas; ++i)
     {
-        mostrarFactura();
+        mostrarFactura(&facturas[i]);
     }
 }
 
@@ -69,7 +88,7 @@ void eliminarFactura()
     int indiceAEliminar = -1;
     for (int i = 0; i < cantidadFacturas; ++i)
     {
-        if (numeroFactura[i] == facturaAEliminar)
+        if (facturas[i].numeroFactura == facturaAEliminar)
         {
             indiceAEliminar = i;
             break;
@@ -80,8 +99,7 @@ void eliminarFactura()
     {
         for (int i = indiceAEliminar; i < cantidadFacturas - 1; ++i)
         {
-            numeroFactura[i] = numeroFactura[i + 1];
-            
+            facturas[i] = facturas[i + 1];
         }
         cantidadFacturas--;
         cout << "Factura eliminada correctamente." << endl;
@@ -105,8 +123,36 @@ int menu()
     return opcion;
 }
 
+void guardarFacturas()
+{
+    FILE *archivo = fopen("facturas.dat", "wb");
+    if (archivo)
+    {
+        fwrite(&cantidadFacturas, sizeof(cantidadFacturas), 1, archivo);
+        fwrite(facturas, sizeof(Factura), cantidadFacturas, archivo);
+        fclose(archivo);
+    }
+}
+
+void cargarFacturas()
+{
+    FILE *archivo = fopen("facturas.dat", "rb");
+    if (archivo)
+    {
+        fread(&cantidadFacturas, sizeof(cantidadFacturas), 1, archivo);
+        facturas = new Factura[cantidadFacturas];
+        fread(facturas, sizeof(Factura), cantidadFacturas, archivo);
+        fclose(archivo);
+    }
+    else
+    {
+        facturas = new Factura[capacidadFacturas];
+    }
+}
+
 void principal()
 {
+    cargarFacturas();
     char opcion;
     do
     {
@@ -116,9 +162,7 @@ void principal()
         case 1:
             system("cls");
             registrarFactura();
-            actualizarEstadoPago();
-            mostrarFactura();
-            cantidadFacturas++;
+            guardarFacturas();
             break;
         case 2:
             system("cls");
@@ -128,14 +172,16 @@ void principal()
         case 3:
             system("cls");
             eliminarFactura();
+            guardarFacturas();
             break;
         case 4:
+            guardarFacturas();
             return;
         default:
             cout << "Opcion no valida. Intente nuevamente.\n";
         }
 
-        cout << "¿Desea realizar otra operacion? (S/N): ";
+        cout << "Desea realizar otra operacion? (S/N): ";
         cin >> opcion;
         system("cls");
     } while (opcion == 'S' || opcion == 's');
