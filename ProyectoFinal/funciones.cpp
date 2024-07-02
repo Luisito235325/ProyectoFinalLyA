@@ -5,9 +5,16 @@
 
 using namespace std;
 
-void limpiarPantalla() {
-    system("cls");
-}
+void mostrarMenu();
+bool compararFechas(const char* fecha1, const char* hora1, const char* fecha2, const char* hora2);
+bool validarFechaHora(const char* fecha, const char* hora);
+void obtenerFechaHoraActual(char* fecha, char* hora);
+void copiarCadena(char* destino, const char* origen, int longitud);
+void registrarReserva();
+void mostrarReservas();
+void eliminarReserva();
+void registrarFactura();
+void mostrarEstadoHabitaciones();
 
 bool compararFechas(const char* fecha1, const char* hora1, const char* fecha2, const char* hora2) {
     int dia1, mes1, anio1, horaInt1, minuto1;
@@ -186,4 +193,15 @@ void mostrarEstadoHabitaciones() {
             cout << "Habitacion " << i + 1 << ": Disponible" << endl;
         }
     }
+}
+
+void mostrarMenu() {
+    cout << "Seleccione una opcion:\n";
+    cout << "1. Registrar nueva reserva\n";
+    cout << "2. Ver reservas registradas\n";
+    cout << "3. Eliminar una reserva\n";
+    cout << "4. Registrar nueva factura\n";
+    cout << "5. Ver estado de las habitaciones\n";
+    cout << "6. Salir\n";
+    cout << "Opción: ";
 }

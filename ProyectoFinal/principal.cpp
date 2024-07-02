@@ -4,16 +4,6 @@
 
 using namespace std;
 
-void mostrarMenu() {
-    cout << "Seleccione una opcion:\n";
-    cout << "1. Registrar nueva reserva\n";
-    cout << "2. Ver reservas registradas\n";
-    cout << "3. Eliminar una reserva\n";
-    cout << "4. Registrar nueva factura\n";
-    cout << "5. Ver estado de las habitaciones\n";
-    cout << "6. Salir\n";
-    cout << "Opción: ";
-}
 
 int main() {
     char opcion;
