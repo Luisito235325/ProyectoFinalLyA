@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 void home()
 {
     int opcion;
@@ -29,28 +28,29 @@ void home()
         switch (opcion)
         {
         case 1:
-        system("cls || clear");
+            system("cls || clear");
             principalCalendario();
             system("pause");
             break;
         case 2:
-        system("cls || clear");
+            system("cls || clear");
             Hotel();
             system("pause");
             break;
         case 3:
-        system("cls || clear");
+            system("cls || clear");
             facturacion();
             system("pause");
             break;
         case 4:
-        system("cls || clear");
+            system("cls || clear");
             Registro();
             system("pause");
             break;
         case 5:
             cout << "Gracias por utilizar nuestro servicio" << endl;
             cout << "Saliendo del programa..." << endl;
+            system("cls || clear");
             break;
         default:
             cout << "Opcion invalida. Intente de nuevo.\n";

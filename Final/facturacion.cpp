@@ -162,25 +162,30 @@ void facturacion()
         switch (op)
         {
         case 1:
-            system("cls");
+            system("cls || clear");
             registrarFactura();
             guardarFacturas();
             break;
         case 2:
-            system("cls");
+            system("cls || clear");
             cout << "Facturas Registradas:" << endl;
             mostrarFacturasRegistradas();
             break;
         case 3:
-            system("cls");
+            system("cls || clear");
             eliminarFactura();
             guardarFacturas();
+            system("pause");
             break;
         case 4:
+        system("cls || clear");
             guardarFacturas();
+            system("pause");
+
             return;
         default:
             cout << "Opcion no valida. Intente nuevamente.\n";
+            system("cls || clear");
         }
 
         cout << "Desea realizar otra operacion? (S/N): ";

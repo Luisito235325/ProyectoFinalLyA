@@ -137,34 +137,46 @@ void Hotel()
         {
         case 1:
         {
+            system("cls || clear");
             int numHabitacion;
             cout << "Ingrese el número de la habitación a ocupar (1-" << habitacionesTotales << "): ";
             cin >> numHabitacion;
             OcuparHabitacion(numHabitacion);
+            system("pause");
             break;
         }
         case 2:
         {
+            system("cls || clear");
             int numHabitacion;
             cout << "Ingrese el número de la habitación a liberar (1-" << habitacionesTotales << "): ";
             cin >> numHabitacion;
             LiberarHabitacion(numHabitacion);
+            system("pause");
             break;
         }
         case 3:
+        system("cls || clear");
             MostrarEstado();
+            system("pause");
             break;
         case 4:
+        system("cls || clear");
             GuardarEstado();
+            system("pause");
             break;
         case 5:
+        system("cls || clear");
             CargarEstado();
+            system("pause");
             break;
         case 6:
             cout << "Saliendo del programa.\n";
+            system("cls || clear");
             break;
         default:
             cout << "Opción inválida. Intente de nuevo.\n";
+            system("cls || clear");
             break;
         }
     } while (opcion != 6);
